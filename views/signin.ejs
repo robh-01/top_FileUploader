@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Uploader | Sign-in to continue</title>
+  </head>
+  <body>
+    <header>
+      <button><a href="/login">Login</a></button>
+      <button><a href="/sign-in">Sign In</a></button>
+    </header>
+    <h1>Sign In</h1>
+    <form action="sign-in" method="post">
+      <label for="firstname">First Name:</label>
+      <input type="text" name="firstname" id="firstname" />
+      <label for="lastname">Last Name:</label>
+      <input type="text" name="lastname" id="lastname" />
+      <label for="username">Username: </label>
+      <input
+        type="text"
+        name="username"
+        id="username"
+        placeholder="Create a new username"
+      />
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" />
+      <button type="submit">Sign In</button>
+    </form>
+  </body>
+</html>
