@@ -10,5 +10,16 @@
       <button><a href="/login">Login</a></button>
       <button><a href="/sign-in">Sign In</a></button>
     </header>
+    <h1>Login</h1>
+    <% if(locals.wrongCredentials) {%>
+    <h2>Incorrect email or password</h2>
+    <% } %>
+    <form action="login" method="post">
+      <label for="email">Email: </label>
+      <input type="email" name="email" id="email" />
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" />
+      <button type="submit">Login</button>
+    </form>
   </body>
 </html>

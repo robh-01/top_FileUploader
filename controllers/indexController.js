@@ -3,6 +3,8 @@ import { createUser } from "../db/queries.js";
 import { userValidations } from "../validations/userValidations.js";
 import { validationResult } from "express-validator";
 
+import { passport } from "../configs/passport.config.js";
+
 export function indexPageGet(req, res, next) {
   if (!req.user) {
     res.redirect("/login");
@@ -34,4 +36,15 @@ export const signinPost = [
     await createUser(user);
     res.redirect("login");
   },
+];
+
+export function loginGet(req, res, next) {
+  res.render("login");
+}
+
+export const loginPost = [
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/failure",
+  }),
 ];
