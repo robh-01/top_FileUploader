@@ -7,6 +7,8 @@ import configEjs from "./configs/config.ejs.js";
 //import routers
 import indexRouter from "./routes/indexRouter.js";
 
+app.use(express.urlencoded({ extended: true }));
+
 configEjs(app);
 app.use("/", indexRouter);
 
