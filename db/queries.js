@@ -15,3 +15,32 @@ export async function createUser(user) {
     },
   });
 }
+
+export async function createFile(file) {
+  await prisma.file.create({
+    data: {
+      ...file,
+    },
+  });
+}
+
+export async function getFilesByUserId(userId) {
+  const files = await prisma.file.findMany({
+    where: {
+      userId: userId,
+    },
+  });
+
+  return files;
+}
+
+export async function getFileById(fileId) {
+  fileId = +fileId; // converting fileId to number
+  const file = await prisma.file.findUnique({
+    where: {
+      id: fileId,
+    },
+  });
+
+  return file;
+}

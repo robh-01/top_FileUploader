@@ -8,6 +8,8 @@ indexRouter.post("/sign-in", indexController.signinPost);
 indexRouter.get("/login", indexController.loginGet);
 indexRouter.post("/login", indexController.loginPost);
 indexRouter.get("/logout", indexController.logoutGet);
+indexRouter.post("/upload", indexController.uploadPost);
+indexRouter.get("/download/:fileId", indexController.downloadGet);
 indexRouter.get("", indexController.indexPageGet);
 
 export default indexRouter;

@@ -13,6 +13,7 @@ model User {
   name     String
   email    String @unique
   password String
+  files    File[]
 }
 
 model Session {
@@ -20,4 +21,16 @@ model Session {
   sid       String   @unique
   data      String   @db.Text // MediumText may be needed for MySql
   expiresAt DateTime
+}
+
+model File {
+  id           Int    @id @default(autoincrement())
+  originalName String
+  serverName   String
+  path         String
+  size         Int
+  mimeType     String
+  userId       Int
+  user         User   @relation(fields: [userId], references: [id])
+  createdAt    DateTime @default(now())
 }

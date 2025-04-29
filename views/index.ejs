@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>File Uploader</title>
-  </head>
-  <body>
-    <header>
-      <button><a href="/logout">Logout</a></button>
-    </header>
-    <form action="/upload" , method="post">
-      <input type="file" name="file_upload" />
-      <button type="submit">Upload</button>
-    </form>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File Uploader</title>
+</head>
+
+<body>
+  <h1>Welcome back, <%= locals.user.name %></h1>
+  <header>
+    <button><a href="/logout">Logout</a></button>
+  </header>
+  <form action="/upload" , method="post" enctype="multipart/form-data">
+    <input type="file" name="file_upload" />
+    <button type="submit">Upload</button>
+  </form>
+  <% if(locals.files) {%>
+  <h2>Uploaded files:</h2>
+  <ul>
+    <% for (let i = 0; i < files.length; i++) { %>
+    <li>
+      <%= files[i].originalName %>
+      <a href="/download/<%= files[i].id %>"> Download</a>
+    </li>
+    <% } %>
+    <% } else{ %>
+    <h2>No files uploaded yet.</h2>
+    <% } %>
+</body>
+
 </html>

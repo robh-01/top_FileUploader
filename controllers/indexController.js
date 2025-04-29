@@ -1,15 +1,25 @@
-import { createUser } from "../db/queries.js";
+import {
+  createUser,
+  createFile,
+  getFilesByUserId,
+  getFileById,
+} from "../db/queries.js";
 
 import { userValidations } from "../validations/userValidations.js";
 import { validationResult } from "express-validator";
 
 import { passport } from "../configs/passport.config.js";
 
-export function indexPageGet(req, res, next) {
+import { upload } from "../configs/multer.config.js";
+
+export async function indexPageGet(req, res, next) {
   if (!req.user) {
     res.redirect("/login");
   } else {
-    res.render("index", { user: req.user });
+    // if user is logged in, render the index page with user data and files
+    const files = await getFilesByUserId(req.user.id);
+    console.dir(files, { depth: null });
+    res.render("index", { user: req.user, files });
   }
 }
 
@@ -55,5 +65,42 @@ export function logoutGet(req, res, next) {
       next(err);
     }
     res.redirect("/");
+  });
+}
+
+export const uploadPost = [
+  upload.single("file_upload"),
+  async (req, res, next) => {
+    if (!req.user) {
+      res.redirect("/login");
+    }
+    const file = req.file;
+    const fileToEntryInDatabase = {
+      originalName: file.originalname,
+      serverName: file.filename,
+      path: file.path,
+      mimeType: file.mimetype,
+      size: file.size,
+      userId: req.user.id,
+    };
+    await createFile(fileToEntryInDatabase);
+    res.redirect("/");
+  },
+];
+
+export async function downloadGet(req, res, next) {
+  const { fileId } = req.params;
+  const file = await getFileById(fileId);
+  if (!file) {
+    return res.status(404).send("File not found");
+  }
+  if (file.userId !== req.user.id) {
+    return res.status(403).send("You are not authorized to download this file");
+  }
+  res.download(file.path, file.originalName, (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error downloading file");
+    }
   });
 }
