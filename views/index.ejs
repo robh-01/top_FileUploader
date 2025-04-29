@@ -6,6 +6,12 @@
     <title>File Uploader</title>
   </head>
   <body>
-    file uploader index page
+    <header>
+      <button><a href="/logout">Logout</a></button>
+    </header>
+    <form action="/upload" , method="post">
+      <input type="file" name="file_upload" />
+      <button type="submit">Upload</button>
+    </form>
   </body>
 </html>

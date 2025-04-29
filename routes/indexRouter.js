@@ -7,6 +7,7 @@ indexRouter.get("/sign-in", indexController.signinGet);
 indexRouter.post("/sign-in", indexController.signinPost);
 indexRouter.get("/login", indexController.loginGet);
 indexRouter.post("/login", indexController.loginPost);
+indexRouter.get("/logout", indexController.logoutGet);
 indexRouter.get("", indexController.indexPageGet);
 
 export default indexRouter;

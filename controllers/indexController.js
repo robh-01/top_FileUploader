@@ -48,3 +48,12 @@ export const loginPost = [
     failureRedirect: "/failure",
   }),
 ];
+
+export function logoutGet(req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      next(err);
+    }
+    res.redirect("/");
+  });
+}
